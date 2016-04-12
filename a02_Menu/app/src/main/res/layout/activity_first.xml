@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_munu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:background="@color/colorGreen"
+        android:text="@string/tv_menu_hint" />
+
+    <Button
+        android:id="@+id/bt_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_munu"
+        android:layout_centerInParent="true"
+        android:text="@string/bt_1_name"/>
+
+    <Button
+        android:id="@+id/bt_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt_1"
+        android:layout_centerInParent="true"
+        android:text="@string/bt_3_name"/>
+
+    <Button
+        android:id="@+id/bt_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt_3"
+        android:layout_centerInParent="true"
+        android:text="@string/bt_4_name"/>
+</RelativeLayout>

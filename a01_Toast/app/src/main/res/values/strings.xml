@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Toast</string>
+    <string name="FirstActivity_name">Toast</string>
+    <string name="bt1_name">默认启动系统浏览器（呵呵）</string>
+    <string name="bt2_name">可选择的（百度）</string>
+    <string name="bt3_name">打开电话拨号界面(10086)</string>
+    <string name="bt4_name">退出</string>
+    <string name="tv_browser">模拟浏览器</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">UI test1</string>
+    <string name="tv_name">This is TextView</string>
+    <string name="button1_name">发送文字</string>
+    <string name="button2_name">更换图片(外加进度条显/隐)</string>
+    <string name="et_hint">输入点什么好呢。。。</string>
+    <string name="bt_start_name">重新加载</string>
+</resources>

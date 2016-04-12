@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jason.data_to_data.SecondActivity">
+
+    <TextView
+        android:id="@+id/firstActivity_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/secondActivity_tv"
+        android:textSize="40sp"
+        android:textColor="#FF0000"/>
+
+    <EditText
+        android:id="@+id/et2_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/et2_hint"
+        android:text="@string/et2_text"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/firstActivity_tv"/>
+
+    <Button
+        android:id="@+id/bt2_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/et2_Text"
+        android:text="@string/bt2_text"/>
+
+    <TextView
+        android:id="@+id/tv2_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt2_name"
+        android:text="@string/tv2_hint"
+        android:textColor="#0000FF"/>
+
+    <TextView
+        android:id="@+id/tv2_name"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/tv2_hint"
+        android:background="#a3a3a3"
+        />
+
+</RelativeLayout>

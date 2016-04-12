@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BroadcastTest</string>
+    <string name="tv1_name">This is a BroadCastReceiver</string>
+</resources>

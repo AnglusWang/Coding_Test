@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">data to data</string>
+    <string name="bt1_0_text">发送数据</string>
+    <string name="bt1_text">不带数据去取回数据</string>
+    <string name="bt2_text">发送数据</string>
+    <string name="et1_text"> </string>
+    <string name="et2_text"> </string>
+    <string name="et1_hint">请输入需要传送到数据</string>
+    <string name="et2_hint">请输入需要传送到数据</string>
+    <string name="firstActivity_tv">这里是第一个活动</string>
+    <string name="secondActivity_tv">这里是第二个活动</string>
+    <string name="tv1_hint">下面是第二个活动返回来数据</string>
+    <string name="tv2_hint">下面是第一个活动发送来数据</string>
+</resources>

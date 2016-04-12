@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dialog</string>
+    <string name="bt1_text">AlertDialog</string>
+    <string name="bt2_text">ProgressDialog</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UIBestPractice</string>
+    <string name="et_hint">Type something here</string>
+    <string name="bt_send_text">发送</string>
+</resources>
