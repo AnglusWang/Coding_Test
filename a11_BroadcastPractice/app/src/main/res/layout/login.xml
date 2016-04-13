@@ -6,6 +6,7 @@
     android:stretchColumns="1"
     tools:context="com.example.jason.broadcastpractice.MainActivity">
 
+    <!--stretchColumns 表示允许第2列进行拉伸-->
     <TableRow>
         <TextView
             android:layout_height="wrap_content"

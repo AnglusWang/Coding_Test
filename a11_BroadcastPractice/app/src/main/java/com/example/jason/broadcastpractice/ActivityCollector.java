@@ -10,6 +10,7 @@ import java.util.List;
  * 创建一个ActivityCllector类用于管理所有的活动
  */
 public class ActivityCollector {
+
     public static List<Activity> activities = new ArrayList<>();
 
     public static void addActivity(Activity activity) {
