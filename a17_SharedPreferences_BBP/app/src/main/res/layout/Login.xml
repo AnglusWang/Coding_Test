@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    tools:context="com.example.jason.pref_bbestpractice.MainActivity">
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="Account: "/>
+
+        <EditText
+            android:id="@+id/account"
+            android:layout_height="wrap_content"
+            android:hint="Input you account" />
+
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="Password: "/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/login"
+            android:text="Login"
+            android:layout_height="wrap_content"
+            android:layout_span="2"/>
+
+    </TableRow>
+</TableLayout>

@@ -1,13 +1,26 @@
 package com.example.jason.pref_bbestpractice;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_activity);
+
+        Button forceOffline = (Button) findViewById(R.id.send_offlineBroadcast);
+        forceOffline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("com.example.jason.pref_bbestpractice.FORCE_OFFLINE");
+                sendBroadcast(intent);
+                Toast.makeText(MainActivity.this, "发送广播成功", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
