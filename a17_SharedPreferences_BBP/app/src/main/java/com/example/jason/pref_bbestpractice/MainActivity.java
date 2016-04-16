@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends BaseActivity {
 
@@ -19,7 +18,6 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent("com.example.jason.pref_bbestpractice.FORCE_OFFLINE");
                 sendBroadcast(intent);
-                Toast.makeText(MainActivity.this, "发送广播成功", Toast.LENGTH_SHORT).show();
             }
         });
     }
