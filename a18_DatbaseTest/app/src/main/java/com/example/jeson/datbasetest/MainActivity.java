@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
         createDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //在这里调用getWritableDatabase方法， 每次会进行检测是否有BookStore.db数据库，没有的就会创建一个
+                //在这里调用getWritableDatabase方法，
+                // 每次会进行检测是否有BookStore.db数据库，没有的就会创建一个
                 myDatabaseHelper.getWritableDatabase();
             }
         });
@@ -118,6 +119,40 @@ public class MainActivity extends Activity {
                     }while(cursor.moveToNext());
                 }
                 cursor.close();
+            }
+        });
+
+        /**
+         * （Android中事务的标准用法）
+         * 首先用SQLiteDatabase的beginTransaction()方法来开启一个事务
+         * 然后在一个异常捕获的代码块中去执行具体的数据库操作
+         * 当所有的操作都完成之后，调用setTransactionSuccessful()表示事务已经执行成功了
+         * 然后在finally中调用endTransaction()来结束事务。
+         */
+        Button replaceData = (Button) findViewById(R.id.replace_data);
+        replaceData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = myDatabaseHelper.getWritableDatabase();
+                db.beginTransaction();  //开启事务
+                try {
+                    db.delete("Book", null, null);
+//                    if (true) {
+//                        //在这里手动抛出一个异常，让事务失败
+//                        throw new NullPointerException();
+//                    }
+                    ContentValues values = new ContentValues();
+                    values.put("name", "Game of Thrones");
+                    values.put("author", "George Martin");
+                    values.put("pages", 720);
+                    values.put("price", 20.85);
+                    db.insert("Book", null, values);
+                    db.setTransactionSuccessful();  //事务已经成功执行
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    db.endTransaction();    //结束事务
+                }
             }
         });
     }

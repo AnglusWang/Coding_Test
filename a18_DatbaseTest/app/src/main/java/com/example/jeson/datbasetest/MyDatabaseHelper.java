@@ -29,7 +29,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "author text, "
             + "price real, "
             + "pages integer, "
-            + "name text)";
+            + "name text, "
+            + "category_id integer )";
 
     /**
      * 新建一张Category表用于记录书籍的分类
@@ -62,8 +63,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //执行DROP语句，如果发现数据库中已经存在Book表或者Category表了，就将这两张表删除掉
-        db.execSQL("drop table if exists Book");
-        db.execSQL("drop table if exists Category");
-        onCreate(db);
+//        db.execSQL("drop table if exists Book");
+//        db.execSQL("drop table if exists Category");
+//        onCreate(db);
+        switch (oldVersion) {
+            case 1:
+                db.execSQL(CREATE_CATEGORY);
+            case 2:
+                db.execSQL("alter table Book add column category_id integer");
+        }
     }
 }
