@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 /**
  * Created by Jason on 4/6/2016.
@@ -16,8 +15,6 @@ public class ForceOfflineReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-
-        Toast.makeText(context, "收到下线广播，准备警告框", Toast.LENGTH_SHORT).show();
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
 
