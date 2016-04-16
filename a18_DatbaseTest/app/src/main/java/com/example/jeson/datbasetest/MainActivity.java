@@ -61,6 +61,23 @@ public class MainActivity extends Activity {
                 db.insert("Book", null, values);    //插入第二条数据
             }
         });
+
+        /**
+         * 更新数据
+         * 构建一个ContentValues对象
+         *      指定说明数据，如： 把价格这一列的数据更新成100.66
+         * 调用SQLiteDatabase的update()方法去执行具体的更新操作
+         */
+        Button updateData = (Button) findViewById(R.id.update_data);
+        updateData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = myDatabaseHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("price", 100.66);
+                db.update("Book", values, "name = ?", new String[] {"The Da Vin Code"});
+            }
+        });
     }
 
 }
