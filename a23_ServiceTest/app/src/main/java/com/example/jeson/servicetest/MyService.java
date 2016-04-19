@@ -2,6 +2,7 @@ package com.example.jeson.servicetest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -12,9 +13,30 @@ import android.util.Log;
  */
 public class MyService extends Service {
 
+    /**
+     *  希望在MyService中提供一个下载功能，然后在活动中可以决定何时开启下载以及随时查看下载进度
+     *      实现思路： 创建一个专门的Binder对象来对下载功能进行管理
+     *
+     *  下面是代码实现
+     */
+    private DownloadBinder mBinder = new DownloadBinder();
+
+    class DownloadBinder extends Binder {
+
+        public void startDownload() {
+            Log.d("Myservice", "startDownload executed");
+        }
+
+        public int getProgress() {
+            Log.d("MyService", "getProgress executed");
+            return 0;
+        }
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+
+        return mBinder;
     }
 
     @Override
