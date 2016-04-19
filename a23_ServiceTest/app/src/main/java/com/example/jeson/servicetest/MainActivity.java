@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.start_intent_service:
                 //打印主线程的id
-                Log.d("MainActivity", "Thread id is " + Thread.currentThread().getId());
+                Log.d("MainActivity", "Thread id is 开门" + Thread.currentThread().getId());
                 Intent intentService = new Intent(this, MyIntentService.class);
                 startService(intentService);
                 break;
