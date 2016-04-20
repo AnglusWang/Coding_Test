@@ -11,5 +11,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         Intent intent = new Intent(this, LongRunningService.class);
         startService(intent);
+
     }
 }

@@ -55,7 +55,7 @@ public class LongRunningService extends Service {
         }).start();
 
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 60 * 60 * 1000;    //一小时的毫秒数
+        int anHour = 60 * 1000;    //一分钟的毫秒数
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent intent1 = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1, 0);
