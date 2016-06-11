@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">A key lock screen</string>
+    <string name="sample_device_admin_description">超级设备管理器，开启后可以进行一键锁屏、清楚数据等操作</string>
+    <string name="sample_device_admin">很有用的管理器</string>
+</resources>

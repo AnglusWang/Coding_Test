@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="com.example.angluswang.akeylockscreen.MainActivity">
+
+    <Button
+        android:onClick="activeAdmin"
+        android:text="激活超级设备管理器"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/get_admin"/>
+
+    <Button
+        android:onClick="lockScreen"
+        android:text="一键锁屏"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/quick_lock"/>
+
+    <Button
+        android:onClick="clearData"
+        android:text="清除数据"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/clear_data"/>
+
+    <Button
+        android:onClick="unInstall"
+        android:text="卸载此应用"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/uninstall"/>
+
+</LinearLayout>
