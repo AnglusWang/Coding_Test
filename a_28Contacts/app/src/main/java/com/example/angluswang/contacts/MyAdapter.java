@@ -16,17 +16,17 @@ import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
 
-    private List<PhoneInfo> mList;
-    private Context mContext;
+    private final List<PhoneInfo> contactList;
+    private final Context context;
 
-    public MyAdapter(List<PhoneInfo> list, Context context) {
-        mList = list;
-        mContext = context;
+    public MyAdapter(List<PhoneInfo> contactList, Context context) {
+        this.contactList = contactList;
+        this.context = context;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return contactList.size();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        return contactList.get(position);
     }
 
     @Override
@@ -49,21 +49,20 @@ public class MyAdapter extends BaseAdapter {
 //        phoneName.setText(mList.get(position).getName());
 //        phoneNumber.setText(mList.get(position).getNumber());
 
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_lvcontact, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lvcontact, null);
             holder = new ViewHolder();
             holder.phoneName = (TextView) convertView.findViewById(R.id.tv_contact_name);
             holder.phoneNumber = (TextView) convertView.findViewById(R.id.tv_contact_number);
-            holder.phoneName.setText(mList.get(position).getName());
-            holder.phoneNumber.setText(mList.get(position).getNumber());
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
-            holder.phoneName.setText(mList.get(position).getName());
-            holder.phoneNumber.setText(mList.get(position).getNumber());
         }
 
+        PhoneInfo contact = contactList.get(position);
+        holder.phoneName.setText(contact.getName());
+        holder.phoneNumber.setText(contact.getNumber());
         return convertView;
     }
 
