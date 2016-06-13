@@ -34,6 +34,7 @@ public class GetNumber {
                 sList.add(phoneInfo);
             }
             cursor.close();
+            System.out.println("sList: " + sList.toString());
         }
         return null;
     }
