@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:anglus="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
+    android:background="@color/colorAccent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.utils.angluswang.roundimageview.MainActivity">
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp">
 
+    <com.utils.angluswang.roundimageview.RoundImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@android:drawable/stat_notify_voicemail"
+        />
+
+    <com.utils.angluswang.roundimageview.RoundImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@android:drawable/stat_notify_voicemail"
+        android:layout_marginTop="30dp"
+        anglus:border_incolor = "#000fff"
+        anglus:boorder_outcolor = "#fff000"
+        anglus:border_width = "10dp"
+        />
 
 </LinearLayout>
