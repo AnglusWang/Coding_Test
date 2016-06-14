@@ -22,7 +22,7 @@
         android:src="@android:drawable/stat_notify_voicemail"
         android:layout_marginTop="30dp"
         anglus:border_incolor = "#000fff"
-        anglus:boorder_outcolor = "#fff000"
+        anglus:border_outcolor = "#fff000"
         anglus:border_width = "10dp"
         />
 
