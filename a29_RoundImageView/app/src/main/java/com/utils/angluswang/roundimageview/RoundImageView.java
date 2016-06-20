@@ -50,7 +50,7 @@ public class RoundImageView extends ImageView {
     }
 
     /**
-     * 从attr.xml 文件中获取属性值，并给RoundImageView设置
+     * 从attrs.xml 文件中获取属性值，并给RoundImageView设置
      */
     public void setRoundImageViewAttributes(AttributeSet attrs) {
         TypedArray a = mContext.obtainStyledAttributes(attrs,
