@@ -1,7 +1,9 @@
-package com.angluswang.scratch;
+package com.angluswang.scratch.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.angluswang.scratch.R;
 
 public class MainActivity extends Activity {
 
