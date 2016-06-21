@@ -70,7 +70,7 @@ public class Scratch extends View {
         mOutterPaint.setDither(true);
         mOutterPaint.setStrokeJoin(Paint.Join.ROUND);
         mOutterPaint.setStrokeCap(Paint.Cap.ROUND);
-        mOutterPaint.setStyle(Paint.Style.FILL);
+        mOutterPaint.setStyle(Paint.Style.STROKE);
         mOutterPaint.setStrokeWidth(20);
     }
 
@@ -114,17 +114,15 @@ public class Scratch extends View {
                 break;
         }
 
+        mCanvas.drawPath(mPath, mOutterPaint);
         invalidate();
         return true;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        drawPath();
-        mCanvas.drawBitmap(mBitmap, 0, 0, null);
+
+        canvas.drawBitmap(mBitmap, 0, 0, null);
     }
 
-    private void drawPath() {
-        mCanvas.drawPath(mPath, mOutterPaint);
-    }
 }
