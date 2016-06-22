@@ -1,6 +1,7 @@
 package com.angluswang.qq_50_slidingmenu.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+
+import com.angluswang.qq_50_slidingmenu.R;
 
 /**
  * Created by Jeson on 2016/6/22.
@@ -27,22 +30,48 @@ public class SlidingMenu extends HorizontalScrollView {
 
     private boolean once = false;
 
+    public SlidingMenu(Context context) {
+        this(context, null);
+    }
+
     /**
      * 未使用自定义属性时调用
+     *
      * @param context
      * @param attrs
      */
     public SlidingMenu(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    /**
+     * 当使用了自定义属性时，调用此方法
+     */
+    public SlidingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        //获取我们定义的属性
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
+                R.styleable.SlidingMenu, defStyleAttr, 0);
+        for (int i = 0, n = a.getIndexCount(); i < n; i++) {
+            int attr = a.getIndex(i);
+            switch (attr) {
+                case R.styleable.SlidingMenu_rightPadding:
+                    mMenuRightPadding = a.getDimensionPixelSize(attr,
+                            (int) TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 50, context
+                                            .getResources().getDisplayMetrics()));
+                    break;
+                default:
+                    break;
+            }
+        }
+        a.recycle();
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
         mScreenWidth = outMetrics.widthPixels;
-
-        //把dp转化为px
-        mMenuRightPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50,
-                context.getResources().getDisplayMetrics());
     }
 
     /**
