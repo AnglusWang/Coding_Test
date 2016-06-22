@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <com.angluswang.qq_50_slidingmenu.view.SlidingMenu
+        android:id="@+id/id_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         anglus:rightPadding="80dp">
@@ -21,6 +22,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/qq">
+
+                <Button
+                    android:onClick="toggleMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="切换菜单"/>
             </LinearLayout>
         </LinearLayout>
     </com.angluswang.qq_50_slidingmenu.view.SlidingMenu>

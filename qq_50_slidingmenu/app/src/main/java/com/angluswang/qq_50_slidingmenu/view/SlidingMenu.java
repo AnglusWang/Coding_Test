@@ -30,6 +30,8 @@ public class SlidingMenu extends HorizontalScrollView {
 
     private boolean once = false;
 
+    private boolean isOpen;
+
     public SlidingMenu(Context context) {
         this(context, null);
     }
@@ -119,8 +121,10 @@ public class SlidingMenu extends HorizontalScrollView {
 
                 if (scrollX >= mMenuWidth / 2) {
                     this.scrollTo(mMenuWidth, 0);
+                    isOpen = false;
                 } else {
                     this.smoothScrollTo(0, 0);
+                    isOpen = true;
                 }
                 return true;
             default:
@@ -128,5 +132,28 @@ public class SlidingMenu extends HorizontalScrollView {
         }
 
         return super.onTouchEvent(ev);
+    }
+
+    public void openMenu() {
+        if (isOpen) return;
+        this.smoothScrollTo(0, 0);
+        isOpen = true;
+    }
+
+    public void closeMenu() {
+        if (!isOpen) return;
+        this.smoothScrollTo(mMenuWidth, 0);
+        isOpen = false;
+    }
+
+    /**
+     * 切换菜单
+     */
+    public void toggle() {
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     }
 }
