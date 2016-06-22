@@ -12,6 +12,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.angluswang.qq_50_slidingmenu.R;
+import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by Jeson on 2016/6/22.
@@ -155,5 +156,18 @@ public class SlidingMenu extends HorizontalScrollView {
         } else {
             openMenu();
         }
+    }
+
+    /**
+     * 滚动发生时
+     */
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+
+        float scale = l * 1.0f / mMenuWidth; // 1 ~ 0
+
+        // 调用属性动画，设置TranslationX
+        ViewHelper.setTranslationX(mMenu, mMenuWidth * scale);
     }
 }
