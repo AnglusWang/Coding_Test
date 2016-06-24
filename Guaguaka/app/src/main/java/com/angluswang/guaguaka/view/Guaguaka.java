@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +34,12 @@ public class Guaguaka extends View {
     //----------
     private Bitmap bitmap;
 
+    private String mText;
+    private int mTextSize;
+    private Paint mBackPaint;
+    // 用于记录刮奖信息文本的宽与高
+    private Rect mTextBound;
+
     public Guaguaka(Context context) {
         this(context, null);
     }
@@ -53,6 +60,11 @@ public class Guaguaka extends View {
         mPath = new Path();
 
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.t2);
+
+        mText = "谢谢惠顾！！！";
+        mTextSize = 35;
+        mTextBound = new Rect();
+        mBackPaint = new Paint();
     }
 
     @Override
@@ -64,7 +76,9 @@ public class Guaguaka extends View {
         //初始Bitmap
         mBitmap = Bitmap.createBitmap(width, heiht, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
-        setupOutpaint();
+
+        setupOutpaint();    //设置绘制画笔
+        setupBackpaint();   //设置获奖信息的画笔
 
         //设置画板颜色的三种方法
 //        mCanvas.drawColor(Color.parseColor("#c0c0c0"));
@@ -72,7 +86,19 @@ public class Guaguaka extends View {
         mCanvas.drawColor(0xffc0c0c0);
     }
 
-    //设置绘制画笔的一些属性
+    /**
+     * 设置获奖信息的画笔的一些属性
+     */
+    private void setupBackpaint() {
+        mBackPaint.setColor(Color.BLACK);
+        mBackPaint.setAntiAlias(true);
+        mBackPaint.setDither(true);
+        mBackPaint.setStyle(Paint.Style.STROKE);
+    }
+
+    /**
+     * 设置绘制画笔的一些属性
+     */
     private void setupOutpaint() {
         mOutPaint.setColor(Color.RED);
         mOutPaint.setAntiAlias(true);
