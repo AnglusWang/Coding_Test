@@ -2,13 +2,18 @@ package com.angluswang.guaguaka.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.angluswang.guaguaka.R;
 
 /**
  * Created by Jeson on 2016/6/24.
@@ -24,6 +29,9 @@ public class Guaguaka extends View {
 
     private int mLastX;
     private int mLastY;
+
+    //----------
+    private Bitmap bitmap;
 
     public Guaguaka(Context context) {
         this(context, null);
@@ -43,6 +51,8 @@ public class Guaguaka extends View {
 
         mOutPaint = new Paint();
         mPath = new Path();
+
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.t2);
     }
 
     @Override
@@ -56,7 +66,10 @@ public class Guaguaka extends View {
         mCanvas = new Canvas(mBitmap);
         setupOutpaint();
 
-
+        //设置画板颜色的三种方法
+//        mCanvas.drawColor(Color.parseColor("#c0c0c0"));
+//        mCanvas.drawColor(Color.GRAY);
+        mCanvas.drawColor(0xffc0c0c0);
     }
 
     //设置绘制画笔的一些属性
@@ -105,11 +118,16 @@ public class Guaguaka extends View {
     //绘制图形
     @Override
     protected void onDraw(Canvas canvas) {
+
+        canvas.drawBitmap(bitmap, 0, 0, null);
         drawPath();
         canvas.drawBitmap(mBitmap, 0, 0, null);
     }
 
     private void drawPath() {
+        // PorterDuffXfermode 设置的是两个图层交集区域的显示方式
+        // dst 是先化的图形， src 是后画的图形
+        mOutPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
         mCanvas.drawPath(mPath, mOutPaint);
     }
 }
