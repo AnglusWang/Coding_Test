@@ -1,7 +1,9 @@
-package com.angluswang.dragviewtest;
+package com.angluswang.guaguaka.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.angluswang.guaguaka.R;
 
 public class MainActivity extends Activity {
 
