@@ -18,6 +18,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/top2_tv_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="聊天"
@@ -31,6 +32,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/top2_tv_found"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="发现"
@@ -44,6 +46,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/top2_tv_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="通讯录"
