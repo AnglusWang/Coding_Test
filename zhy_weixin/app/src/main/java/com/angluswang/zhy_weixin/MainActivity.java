@@ -6,6 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,14 +31,31 @@ public class MainActivity extends FragmentActivity {
     private LinearLayout chatLinearLayout;
     private BadgeView mBadgeView;
 
+    private ImageView top2ImgTabline;
+    private int mScreenOneThird;
+
+    private int mCurrentPageIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
+        initTabline();
 
-        mViewPager.setAdapter(mAdapter);
+        initView();
+    }
+
+    private void initTabline() {
+        top2ImgTabline = (ImageView) findViewById(R.id.top2_img_tabline);
+        Display display = getWindow().getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        mScreenOneThird = metrics.widthPixels / 3;
+
+        ViewGroup.LayoutParams lp = top2ImgTabline.getLayoutParams();
+        lp.width = mScreenOneThird;
+        top2ImgTabline.setLayoutParams(lp);
     }
 
     private void initView() {
@@ -63,11 +84,37 @@ public class MainActivity extends FragmentActivity {
                 return mDatas.size();
             }
         };
+        mViewPager.setAdapter(mAdapter);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)
+                        top2ImgTabline.getLayoutParams();
+
+                // 初始时的 leftMargin 数值
+                int oldScreen = mCurrentPageIndex * mScreenOneThird;
+                // 往左移动时 leftMargin 的变化
+                int toLeftOffset = (int) ((positionOffset - 1) * mScreenOneThird);
+                // 往右移动时 leftMargin 的变
+                int toRightOffset = (int) (positionOffset * mScreenOneThird);
+                if (mCurrentPageIndex == 0 && position == 0) {
+                    // 0 -> 1
+                    lp.leftMargin = oldScreen + toRightOffset;
+                } else if (mCurrentPageIndex == 1 && position == 0) {
+                    // 1 -> 0
+                    lp.leftMargin = oldScreen + toLeftOffset;
+                } else if (mCurrentPageIndex == 1 && position == 1) {
+                    // 1 -> 2
+                    lp.leftMargin = oldScreen + toRightOffset;
+                } else if (mCurrentPageIndex == 2 && position == 1) {
+                    // 2 -> 1
+                    lp.leftMargin = oldScreen + toLeftOffset;
+                }
+
+                top2ImgTabline.setLayoutParams(lp);
             }
 
             @Override
@@ -93,6 +140,8 @@ public class MainActivity extends FragmentActivity {
                     default:
                         break;
                 }
+
+                mCurrentPageIndex = position;
             }
 
             @Override
