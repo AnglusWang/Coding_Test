@@ -4,5 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <com.angluswang.guaguaka.view.Guaguaka
+        android:id="@+id/id_guaguaka"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
