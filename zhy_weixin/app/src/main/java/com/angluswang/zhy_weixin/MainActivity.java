@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.jauker.widget.BadgeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,9 @@ public class MainActivity extends FragmentActivity {
     private TextView top2TvChat;
     private TextView top2TvFound;
     private TextView top2TvContact;
+
+    private LinearLayout chatLinearLayout;
+    private BadgeView mBadgeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class MainActivity extends FragmentActivity {
         top2TvChat = (TextView) findViewById(R.id.top2_tv_chat);
         top2TvFound = (TextView) findViewById(R.id.top2_tv_found);
         top2TvContact = (TextView) findViewById(R.id.top2_tv_contact);
+        chatLinearLayout = (LinearLayout) findViewById(R.id.id_ll_chat);
 
         mDatas = new ArrayList<>();
         ChatMainTabFragment tab1 = new ChatMainTabFragment();
@@ -68,6 +75,13 @@ public class MainActivity extends FragmentActivity {
                 resetTextView();
                 switch (position) {
                     case 0:
+                        if (mBadgeView != null) {
+                            chatLinearLayout.removeView(mBadgeView);
+                        }
+                        mBadgeView = new BadgeView(MainActivity.this);
+                        mBadgeView.setBadgeCount(8);
+                        chatLinearLayout.addView(mBadgeView);
+
                         top2TvChat.setTextColor(0xFF008000);
                         break;
                     case 1:
