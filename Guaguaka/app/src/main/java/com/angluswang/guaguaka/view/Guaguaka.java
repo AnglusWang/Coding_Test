@@ -10,8 +10,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Jeson on 2016/6/24.
@@ -36,6 +39,21 @@ public class Guaguaka extends View {
     private Paint mBackPaint;
     // 用于记录刮奖信息文本的宽与高
     private Rect mTextBound;
+
+    // 判断擦除的区域是否达到阈值
+    // volatile 解决多线程对同一变量的可能潜在问题
+    private volatile boolean isComplete = false;
+
+    public interface onGuaguakaCompleteListener {
+        void complete();
+    }
+
+    private onGuaguakaCompleteListener mListener;
+
+    public void setonGuaguakaCompleteListener(
+            onGuaguakaCompleteListener listener) {
+        mListener = listener;
+    }
 
     public Guaguaka(Context context) {
         this(context, null);
@@ -134,6 +152,7 @@ public class Guaguaka extends View {
                 mLastY = y;
                 break;
             case MotionEvent.ACTION_UP:
+                new Thread(mRunnable).start();
                 break;
             default:
                 break;
@@ -142,17 +161,66 @@ public class Guaguaka extends View {
         return true;
     }
 
+    /**
+     * 开启一个线程，用于计算刮开区域的面积（避免在主线程中出现阻塞或卡顿现象）
+     */
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int w = getWidth();
+            int h = getHeight();
+
+            float wipeArea = 0;
+            float totalArea = w * h;
+
+            Bitmap bitmap = mBitmap;
+            int[] mPixels = new int[w * h];
+
+            //获取Bitmap上的所有像素信息
+            bitmap.getPixels(mPixels, 0, w, 0, 0, w, h);
+
+            for (int i = 0; i < w; i++) {
+                for (int j = 0; j < h; j++) {
+                    int index = i + j * w;
+                    if (mPixels[index] == 0) {
+                        wipeArea++;
+                    }
+                }
+            }
+
+            if (wipeArea > 0 && totalArea > 0) {
+                int percent = (int) (wipeArea * 100 / totalArea);
+                Log.e(TAG, percent + "...");
+                if (percent > 60) {
+                    //清除掉图层区域
+                    isComplete = true;
+                    postInvalidate();
+
+                }
+            }
+        }
+    };
+
     //绘制图形
     @Override
     protected void onDraw(Canvas canvas) {
 
 //        canvas.drawBitmap(bitmap, 0, 0, null);
         canvas.drawText(mText,
-                getWidth()/2 - mTextBound.width()/2,
-                getHeight()/2 + mTextBound.height()/2,
+                getWidth() / 2 - mTextBound.width() / 2,
+                getHeight() / 2 + mTextBound.height() / 2,
                 mBackPaint);   //绘制获奖信息
-        drawPath();
-        canvas.drawBitmap(mBitmap, 0, 0, null); //绘制图层
+
+        if (isComplete) {
+            if (mListener != null) {
+                mListener.complete();
+            }
+        }
+
+        if (!isComplete) {
+            drawPath();
+            canvas.drawBitmap(mBitmap, 0, 0, null); //绘制图层
+        }
     }
 
     private void drawPath() {
