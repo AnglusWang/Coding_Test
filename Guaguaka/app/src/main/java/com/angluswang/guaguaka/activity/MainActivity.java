@@ -24,5 +24,6 @@ public class MainActivity extends Activity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+        guaguaka.setText("Android新技能Get");
     }
 }
