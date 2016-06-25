@@ -2,7 +2,6 @@ package com.angluswang.guaguaka.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,8 +12,6 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
-import com.angluswang.guaguaka.R;
 
 /**
  * Created by Jeson on 2016/6/24.
@@ -32,7 +29,7 @@ public class Guaguaka extends View {
     private int mLastY;
 
     //----------
-    private Bitmap bitmap;
+//    private Bitmap bitmap;
 
     private String mText;
     private int mTextSize;
@@ -59,10 +56,10 @@ public class Guaguaka extends View {
         mOutPaint = new Paint();
         mPath = new Path();
 
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.t2);
+//        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.t2);
 
-        mText = "谢谢惠顾！！！";
-        mTextSize = 35;
+        mText = "谢谢惠顾";
+        mTextSize = 40;
         mTextBound = new Rect();
         mBackPaint = new Paint();
     }
@@ -93,7 +90,11 @@ public class Guaguaka extends View {
         mBackPaint.setColor(Color.BLACK);
         mBackPaint.setAntiAlias(true);
         mBackPaint.setDither(true);
-        mBackPaint.setStyle(Paint.Style.STROKE);
+        mBackPaint.setStyle(Paint.Style.FILL);
+
+        mBackPaint.setTextSize(mTextSize);
+        // 获得当前画笔绘制文本的宽和高
+        mBackPaint.getTextBounds(mText, 0, mText.length(), mTextBound);
     }
 
     /**
@@ -145,9 +146,13 @@ public class Guaguaka extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        canvas.drawBitmap(bitmap, 0, 0, null);
+//        canvas.drawBitmap(bitmap, 0, 0, null);
+        canvas.drawText(mText,
+                getWidth()/2 - mTextBound.width()/2,
+                getHeight()/2 + mTextBound.height()/2,
+                mBackPaint);   //绘制获奖信息
         drawPath();
-        canvas.drawBitmap(mBitmap, 0, 0, null);
+        canvas.drawBitmap(mBitmap, 0, 0, null); //绘制图层
     }
 
     private void drawPath() {
