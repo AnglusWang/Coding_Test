@@ -270,9 +270,29 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                 }
             });
 
-            child.startAnimation(tranAnim);
+            //添加旋转动画
+            RotateAnimation rotAnim = new RotateAnimation(0, 720,
+                    Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            rotAnim.setDuration(duration);
+            rotAnim.setFillAfter(true);
+
+            //添加动画到动画集 并开启动画（注： 先添加旋转动画 原因：setFillAfter都为true）
+            animSet.addAnimation(rotAnim);
+            animSet.addAnimation(tranAnim);
+
+            child.startAnimation(animSet);
         }
 
+        //切换菜单状态
+        changeStatus();
+
+    }
+
+    /**
+     * 改变子菜单的展开状态
+     */
+    private void changeStatus() {
+        mMenuStatus = (mMenuStatus == Status.CLOSE) ? Status.OPEN : Status.CLOSE;
     }
 
     /**
