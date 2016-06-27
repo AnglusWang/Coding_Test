@@ -248,6 +248,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
             }
             tranAnim.setDuration(duration);
             tranAnim.setFillAfter(true);
+            tranAnim.setStartOffset(i * 20);
 
             // 设置动画监听，当主按钮状态为 CLOSE时 设置子item的可见属性为GONE
             tranAnim.setAnimationListener(new Animation.AnimationListener() {
