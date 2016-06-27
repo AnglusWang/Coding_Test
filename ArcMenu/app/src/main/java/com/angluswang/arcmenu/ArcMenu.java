@@ -6,9 +6,11 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
 /**
@@ -89,7 +91,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100,
                         getResources().getDisplayMetrics()));
 
-        System.out.println("mPosition: " + mPosition + "; mRadius: " + mRadius);
+//        System.out.println("mPosition: " + mPosition + "; mRadius: " + mRadius);
 
         ta.recycle();
     }
@@ -280,8 +282,20 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
             //添加动画到动画集 并开启动画（注： 先添加旋转动画 原因：setFillAfter都为true）
             animSet.addAnimation(rotAnim);
             animSet.addAnimation(tranAnim);
-
             child.startAnimation(animSet);
+
+            //添加MenuItem的点击监听
+            final int position = i + 1;
+            child.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnMenuItemClickListener != null) {
+                        mOnMenuItemClickListener.onClick(v, position);
+                    }
+                    menuItemAnim(position - 1);
+                    changeStatus();
+                }
+            });
         }
 
         //切换菜单状态
@@ -307,4 +321,62 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         anim.setFillAfter(true);
         v.startAnimation(anim);
     }
+
+    /**
+     * 子菜单item的点击动画
+     */
+    private void menuItemAnim(int position) {
+
+        for (int i = 0, count = getChildCount(); i < count - 1; i++) {
+
+            final View child = getChildAt(i + 1);
+            if (i == position) {
+                child.startAnimation(scaleBigAnim(300));
+            }else {
+                child.startAnimation(scaleSmallAnim(300));
+            }
+
+            child.setClickable(false);
+            child.setFocusable(false);
+        }
+    }
+
+    /**
+     * 子菜单变大动画 以及透明度降低
+     */
+    private Animation scaleBigAnim(int duration) {
+
+        AnimationSet animSet = new AnimationSet(true);
+
+        ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 3.0f, 1.0f, 3.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        AlphaAnimation alphaAnim = new AlphaAnimation(1.0f, 0.0f);
+
+        animSet.addAnimation(scaleAnim);
+        animSet.addAnimation(alphaAnim);
+        animSet.setDuration(duration);
+        animSet.setFillAfter(true);
+
+        return animSet;
+    }
+
+    /**
+     * 子菜单变小动画
+     */
+    private Animation scaleSmallAnim(int duration) {
+
+        AnimationSet animSet = new AnimationSet(true);
+
+        ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        AlphaAnimation alphaAnim = new AlphaAnimation(1.0f, 0.0f);
+
+        animSet.addAnimation(scaleAnim);
+        animSet.addAnimation(alphaAnim);
+        animSet.setDuration(duration);
+        animSet.setFillAfter(true);
+
+        return animSet;
+    }
+
 }
