@@ -205,11 +205,11 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     }
 
     /**
-     * 展开子菜单
+     * 展开与关闭子菜单
      *
      * @param duration
      */
-    private void ToggleMenu(int duration) {
+    public void ToggleMenu(int duration) {
 
         //为MenuItem 添加平移动画和旋转动画
         int count = getChildCount();
@@ -243,7 +243,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                 // 设置子item 是否可以获得焦点及可否触摸
                 child.setClickable(true);
                 child.setFocusable(true);
-            } else {
+            } else {    // to close
                 tranAnim = new TranslateAnimation(0, xflag * cl, 0, yflag * ct);
                 child.setClickable(false);
                 child.setFocusable(false);
@@ -304,6 +304,13 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     }
 
     /**
+     * 检测子菜单是否展开
+     */
+    public boolean isOpen() {
+        return mMenuStatus == Status.OPEN;
+    }
+
+    /**
      * 改变子菜单的展开状态
      */
     private void changeStatus() {
@@ -332,7 +339,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
             final View child = getChildAt(i + 1);
             if (i == position) {
                 child.startAnimation(scaleBigAnim(300));
-            }else {
+            } else {
                 child.startAnimation(scaleSmallAnim(300));
             }
 

@@ -1,0 +1,47 @@
+ <com.angluswang.arcmenu.ArcMenu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:anglus="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/id_menu_left_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        anglus:position="left_bottom"
+        anglus:radius="140dp">
+
+        <!--主按钮-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/composer_button">
+            <ImageView
+                android:id="@+id/id_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/composer_icn_plus"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/composer_camera"
+            android:tag="Camera"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/composer_music"
+            android:tag="Music"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/composer_place"
+            android:tag="Place"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/composer_contact"
+            android:tag="Contact"/>
+
+    </com.angluswang.arcmenu.ArcMenu>

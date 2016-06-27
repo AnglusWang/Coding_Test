@@ -1,71 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:anglus="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.angluswang.arcmenu.ArcMenu
+    <ListView
+        android:id="@+id/id_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        anglus:position="right_bottom"
-        anglus:radius="160dp">
+        android:layout_height="match_parent">
 
-        <!--主按钮-->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/composer_button">
-            <ImageView
-                android:id="@+id/id_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/composer_icn_plus"/>
-        </RelativeLayout>
+    </ListView>
 
-        <!--item 1-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/composer_camera"
-            android:tag="Camera"/>
-
-        <!--item 2-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/composer_music"
-            android:tag="Music"/>
-
-        <!--item 3-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/composer_place"
-            android:tag="Place"/>
-
-        <!--item 4-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/composer_sleep"
-            android:tag="Sleep"/>
-
-        <!--item 5-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/composer_contact"
-            android:tag="Contact"/>
-
-        <!--&lt;!&ndash;item 6&ndash;&gt;-->
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/composer_people"-->
-            <!--android:tag="People"/>-->
-    </com.angluswang.arcmenu.ArcMenu>
-
+    <include layout="@layout/menu_right_bottom"/>
 </RelativeLayout>
