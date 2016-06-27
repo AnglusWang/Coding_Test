@@ -92,6 +92,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
     /**
      * 测量
+     *
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
@@ -108,6 +109,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
     /**
      * 布局
+     *
      * @param changed
      * @param l
      * @param t
@@ -120,6 +122,30 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         if (changed) {
             layoutCButton();
 
+            //定位item
+            int count = getChildCount();
+            for (int i = 0; i < count - 1; i++) {
+                View child = getChildAt(i + 1); //获取子item
+
+                //默认在左上时的item的(x, y)坐标
+                int cl = (int) (mRadius * Math.sin(Math.PI / 2 / (count - 2) * i));
+                int ct = (int) (mRadius * Math.cos(Math.PI / 2 / (count - 2) * i));
+
+                int cWidth = child.getMeasuredWidth();
+                int cHeight = child.getMeasuredHeight();
+
+                // 根据主按钮的位置来修改item的左右位置
+                // 在左下和右下时，修正ct
+                if (mPosition == Position.LEFT_BOTTOM || mPosition == Position.RIGHT_BOTTOM) {
+                    ct = getMeasuredHeight() - cHeight - ct;
+                }
+                // 在右上和右下时，修正cl
+                if (mPosition == Position.RIGHT_TOP || mPosition == Position.RIGHT_BOTTOM) {
+                    cl = getMeasuredWidth() - cWidth - cl;
+                }
+
+                child.layout(cl, ct, cl + cWidth, ct + cHeight);
+            }
         }
     }
 

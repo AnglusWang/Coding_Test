@@ -9,8 +9,8 @@
     <com.angluswang.arcmenu.ArcMenu
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        anglus:position="right_bottom"
-        anglus:radius="100dp">
+        anglus:position="left_bottom"
+        anglus:radius="160dp">
 
         <!--主按钮-->
         <RelativeLayout
@@ -60,12 +60,12 @@
             android:src="@drawable/composer_contact"
             android:tag="Contact"/>
 
-        <!--item 6-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/composer_people"
-            android:tag="People"/>
+        <!--&lt;!&ndash;item 6&ndash;&gt;-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/composer_people"-->
+            <!--android:tag="People"/>-->
     </com.angluswang.arcmenu.ArcMenu>
 
 </RelativeLayout>
