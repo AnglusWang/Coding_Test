@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 
 /**
  * Created by Jeson on 2016/6/26.
@@ -189,5 +191,19 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        //为主按钮添加旋转动画
+        rotateCButton(v, 0f, 360f, 300);
+    }
+
+    /**
+     * 主按钮旋转动画
+     */
+    private void rotateCButton(View v, float start, float end, int duration) {
+        RotateAnimation anim = new RotateAnimation(start, end,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(duration);
+        anim.setFillAfter(true);
+        v.startAnimation(anim);
     }
 }
