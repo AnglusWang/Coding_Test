@@ -7,7 +7,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 
 /**
  * Created by Jeson on 2016/6/26.
@@ -129,6 +131,8 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
             for (int i = 0; i < count - 1; i++) {
                 View child = getChildAt(i + 1); //获取子item
 
+                child.setVisibility(GONE); // 默认不展开子菜单
+
                 //默认在左上时的item的(x, y)坐标
                 int cl = (int) (mRadius * Math.sin(Math.PI / 2 / (count - 2) * i));
                 int ct = (int) (mRadius * Math.cos(Math.PI / 2 / (count - 2) * i));
@@ -193,6 +197,82 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
         //为主按钮添加旋转动画
         rotateCButton(v, 0f, 360f, 300);
+
+        //展开子菜单
+        ToggleMenu(300);
+    }
+
+    /**
+     * 展开子菜单
+     *
+     * @param duration
+     */
+    private void ToggleMenu(int duration) {
+
+        //为MenuItem 添加平移动画和旋转动画
+        int count = getChildCount();
+        for (int i = 0; i < count - 1; i++) {
+
+            final View child = getChildAt(i + 1);
+            child.setVisibility(VISIBLE);
+
+            int cl = (int) (mRadius * Math.sin(Math.PI / 2 / (count - 2) * i));
+            int ct = (int) (mRadius * Math.cos(Math.PI / 2 / (count - 2) * i));
+
+            // 左加右减， 上加下减
+            int xflag = 1;
+            int yflag = 1;
+
+            if (mPosition == Position.LEFT_TOP || mPosition == Position.LEFT_BOTTOM) {
+                xflag = -1;
+            }
+
+            if (mPosition == Position.LEFT_TOP || mPosition == Position.RIGHT_TOP) {
+                yflag = -1;
+            }
+
+            //添加平移动画
+            AnimationSet animSet = new AnimationSet(true);
+            TranslateAnimation tranAnim = null;
+
+            // to open
+            if (mMenuStatus == Status.CLOSE) {
+                tranAnim = new TranslateAnimation(xflag * cl, 0, yflag * ct, 0);
+                // 设置子item 是否可以获得焦点及可否触摸
+                child.setClickable(true);
+                child.setFocusable(true);
+            } else {
+                tranAnim = new TranslateAnimation(0, xflag * cl, 0, yflag * ct);
+                child.setClickable(false);
+                child.setFocusable(false);
+            }
+            tranAnim.setDuration(duration);
+            tranAnim.setFillAfter(true);
+
+            // 设置动画监听，当主按钮状态为 CLOSE时 设置子item的可见属性为GONE
+            tranAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                    if (mMenuStatus == Status.CLOSE) {
+                        child.setVisibility(GONE);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            child.startAnimation(tranAnim);
+        }
+
     }
 
     /**
