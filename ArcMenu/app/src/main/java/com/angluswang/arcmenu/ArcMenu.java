@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * 自定义控件
  */
 
-public class ArcMenu extends ViewGroup {
+public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
     private static final int POS_LEFT_TOP = 0;
     private static final int POS_LEFT_BOTTOM = 1;
@@ -90,8 +90,78 @@ public class ArcMenu extends ViewGroup {
         ta.recycle();
     }
 
+    /**
+     * 测量
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int count = getChildCount(); //获取child的数目
+        for (int i = 0; i < count; i++) {
+            //测量child
+            measureChild(getChildAt(i), widthMeasureSpec, heightMeasureSpec);
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    /**
+     * 布局
+     * @param changed
+     * @param l
+     * @param t
+     * @param r
+     * @param b
+     */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+        if (changed) {
+            layoutCButton();
+
+        }
+    }
+
+    /**
+     * 定位主菜单按钮
+     */
+    private void layoutCButton() {
+        mCButton = getChildAt(0);
+        mCButton.setOnClickListener(this);
+
+        int l = 0;  //左边的距离
+        int t = 0;  //顶部的距离
+
+        int width = mCButton.getMeasuredWidth();    //主按钮的宽度与高度
+        int height = mCButton.getMeasuredHeight();
+
+        switch (mPosition) {
+            case LEFT_TOP:
+                l = 0;
+                t = 0;
+                break;
+            case LEFT_BOTTOM:
+                l = 0;
+                t = getMeasuredHeight() - height;
+                break;
+            case RIGHT_TOP:
+                l = getMeasuredWidth() - width;
+                t = 0;
+                break;
+            case RIGHT_BOTTOM:
+                l = getMeasuredWidth() - width;
+                t = getMeasuredHeight() - height;
+                break;
+            default:
+                break;
+        }
+
+        mCButton.layout(l, t, l + width, t + height);
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }
