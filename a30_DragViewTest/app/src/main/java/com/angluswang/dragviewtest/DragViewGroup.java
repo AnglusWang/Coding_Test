@@ -59,6 +59,7 @@ public class DragViewGroup extends FrameLayout {
     }
 
     private void initView() {
+        //初始化ViewDragHelper
         mViewDragHelper = ViewDragHelper.create(this, callback);
     }
 
@@ -88,14 +89,14 @@ public class DragViewGroup extends FrameLayout {
                 public void onViewReleased(View releasedChild, float xvel, float yvel) {
                     super.onViewReleased(releasedChild, xvel, yvel);
                     //手指抬起后缓慢移动到指定距离
-                    if (mMainView.getLeft() < 500) {
+                    if (mMainView.getLeft() < 200) {
                         //关闭菜单
                         //相当于 Scroller 的 startScroll 方法
                         mViewDragHelper.smoothSlideViewTo(mMainView, 0, 0);
                         ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
                     } else {
                         //打开菜单
-                        mViewDragHelper.smoothSlideViewTo(mMainView, 300, 0);
+                        mViewDragHelper.smoothSlideViewTo(mMainView, 400, 0);
                         ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
                     }
                 }

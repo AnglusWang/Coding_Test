@@ -5,9 +5,32 @@
     android:layout_height="match_parent">
 
     <com.angluswang.dragviewtest.DragViewGroup
-        android:layout_width="500dp"
-        android:layout_height="500dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ea0ce7">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MenuView"
+                android:textSize="20sp"
+                />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#07ed73">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MainView"
+                android:textSize="60sp"/>
+        </FrameLayout>
     </com.angluswang.dragviewtest.DragViewGroup>
 
 </FrameLayout>
