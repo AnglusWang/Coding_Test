@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -112,14 +113,44 @@ public class ChangeColorIconWithText extends View {
 
         // 内存去准备mBitmap , setAlpha , 纯色 ，xfermode ， 图标
         setupTargetBitmap(alpha);
+        // 1、绘制原文本 ； 2、绘制变色的文本
+        drawSourceText(canvas, alpha);
+        drawTargetText(canvas, alpha);
 
         canvas.drawBitmap(mBitmap, 0, 0, null);
-
-        super.onDraw(canvas);
     }
 
     /**
-     * 在内存中绘制可变色的Bitmap
+     * 绘制变色的文本
+     *
+     * @param canvas
+     * @param alpha
+     */
+    private void drawTargetText(Canvas canvas, int alpha) {
+        mTextPaint.setColor(mColor);
+        mTextPaint.setAlpha(255-alpha);
+        int x = getMeasuredWidth() / 2 - mTextBound.width() / 2;
+        int y = mIconRect.bottom + mTextBound.height();
+        canvas.drawText(mText, x, y, mTextPaint);
+    }
+
+    /**
+     * 绘制原文本
+     *
+     * @param canvas
+     * @param alpha
+     */
+    private void drawSourceText(Canvas canvas, int alpha) {
+        mTextPaint.setColor(0xff333333);
+        mTextPaint.setAlpha(alpha);
+        int x = getMeasuredWidth() / 2 - mTextBound.width() / 2;
+        int y = mIconRect.bottom + mTextBound.height();
+        canvas.drawText(mText, x, y, mTextPaint);
+    }
+
+    /**
+     * 在内存中绘制可变色的Icon
+     *
      * @param alpha
      */
     private void setupTargetBitmap(int alpha) {
@@ -137,4 +168,29 @@ public class ChangeColorIconWithText extends View {
         mPaint.setAlpha(255);
         mCanvas.drawBitmap(mIconBitmap, null, mIconRect, mPaint);
     }
+
+    /**
+     * 设置透明度
+     * @param alpha
+     */
+    public void setIconAlpha(float alpha)
+    {
+        this.mAlpha = alpha;
+        invalidateView();
+    }
+
+    /**
+     * 重绘
+     */
+    private void invalidateView()
+    {
+        if (Looper.getMainLooper() == Looper.myLooper())
+        {
+            invalidate();
+        } else
+        {
+            postInvalidate();
+        }
+    }
+
 }
