@@ -1,15 +1,27 @@
 package com.angluswang.weixin_60_mainlayout;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.ViewConfiguration;
 import android.view.Window;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
+
+    private ViewPager mViewpager;
+    private List<Fragment> mTabs = new ArrayList<>();
+    private String[] mTitles = new String[]
+            {"First Fragment !", "Second Fragment !", "Third Fragment !",
+                    "Fourth Fragment !"};
+    private FragmentPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +31,39 @@ public class MainActivity extends Activity {
         setOverflowButtonAlways();
         getActionBar().setDisplayShowHomeEnabled(false); // 隐藏微信左边的图标
 
+        initView();
+        initData();
+        mViewpager.setAdapter(mAdapter);
+
+    }
+
+    private void initData() {
+
+        //初始化数据
+        for (String title : mTitles) {
+            TabFragment tabFragment = new TabFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(TabFragment.TITLE, title);
+            tabFragment.setArguments(bundle);
+            mTabs.add(tabFragment);
+        }
+
+        //初始化设配器
+        mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return mTabs.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mTabs.size();
+            }
+        };
+    }
+
+    private void initView() {
+        mViewpager = (ViewPager) findViewById(R.id.id_viewpager);
     }
 
     @Override
