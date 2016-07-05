@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
@@ -14,13 +16,13 @@ import android.view.View;
 /**
  * Created by Jeson on 2016/7/5.
  * 自定义View （Tab 栏的图标 随页面切换而变化）
- *
+ * <p>
  * 步骤：
- *  1.新建attr.xml文件，自己属性并声明
- *  2.在布局文件中使用自定义属性
- *  3.在构造函数中获取自定义属性
- *  4.onMeasure() 测量
- *  5.onDraw() 绘图
+ * 1.新建attr.xml文件，自己属性并声明
+ * 2.在布局文件中使用自定义属性
+ * 3.在构造函数中获取自定义属性
+ * 4.onMeasure() 测量
+ * 5.onDraw() 绘图
  */
 
 public class ChangeColorIconWithText extends View {
@@ -91,12 +93,48 @@ public class ChangeColorIconWithText extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+        int iconWidth = Math.min(getMeasuredWidth() - getPaddingLeft()
+                - getPaddingRight(), getMeasuredHeight() - getPaddingTop()
+                - getPaddingBottom() - mTextBound.height());
+        int left = getMeasuredWidth() / 2 - iconWidth / 2;
+        int top = getMeasuredHeight() / 2 - (mTextBound.height() + iconWidth)
+                / 2;
+        mIconRect = new Rect(left, top, left + iconWidth, top + iconWidth);
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
 
+        canvas.drawBitmap(mIconBitmap, null, mIconRect, null);
+
+        int alpha = (int) Math.ceil(255 * mAlpha); // 向上取1
+
+        // 内存去准备mBitmap , setAlpha , 纯色 ，xfermode ， 图标
+        setupTargetBitmap(alpha);
+
+        canvas.drawBitmap(mBitmap, 0, 0, null);
+
+        super.onDraw(canvas);
+    }
+
+    /**
+     * 在内存中绘制可变色的Bitmap
+     * @param alpha
+     */
+    private void setupTargetBitmap(int alpha) {
+
+        mBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+        mPaint = new Paint();
+        mPaint.setAlpha(alpha);
+        mPaint.setColor(mColor);
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mCanvas.drawRect(mIconRect, mPaint);
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        mPaint.setAlpha(255);
+        mCanvas.drawBitmap(mIconBitmap, null, mIconRect, mPaint);
     }
 }
