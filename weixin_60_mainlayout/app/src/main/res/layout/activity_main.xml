@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:anglus="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager android:id="@+id/id_viewpager"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -12,10 +14,54 @@
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
-        android:background="@drawable/tab_bg"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@drawable/tab_bg"
         android:orientation="horizontal">
+
+        <com.angluswang.weixin_60_mainlayout.ChangeColorIconWithText
+            android:id="@+id/id_indicator_one"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            anglus:color="#ff45c01a"
+            anglus:icon="@drawable/ic_menu_start_conversation"
+            anglus:text="@string/app_name"
+            anglus:text_size="12sp"/>
+
+        <com.angluswang.weixin_60_mainlayout.ChangeColorIconWithText
+            android:id="@+id/id_indicator_two"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            anglus:color="#ff45c01a"
+            anglus:icon="@drawable/ic_menu_friendslist"
+            anglus:text="@string/tab_contact"
+            anglus:text_size="12sp"/>
+
+        <com.angluswang.weixin_60_mainlayout.ChangeColorIconWithText
+            android:id="@+id/id_indicator_three"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            anglus:color="#ff45c01a"
+            anglus:icon="@drawable/ic_menu_emoticons"
+            anglus:text="@string/tab_found"
+            anglus:text_size="12sp"/>
+
+        <com.angluswang.weixin_60_mainlayout.ChangeColorIconWithText
+            android:id="@+id/id_indicator_four"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            anglus:color="#ff45c01a"
+            anglus:icon="@drawable/ic_menu_allfriends"
+            anglus:text="@string/tab_me"
+            anglus:text_size="12sp"/>
 
     </LinearLayout>
 </LinearLayout>
