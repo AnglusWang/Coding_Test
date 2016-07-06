@@ -9,7 +9,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -88,6 +90,31 @@ public class ChangeColorIconWithText extends View {
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setColor(0Xff555555);
         mTextPaint.getTextBounds(mText, 0, mText.length(), mTextBound);
+    }
+
+    private static final String INSTANCE_STATUS = "instance_status";
+    private static final String STATUS_ALPHA = "status_alpha";
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(INSTANCE_STATUS, super.onSaveInstanceState());
+        bundle.putFloat(STATUS_ALPHA, mAlpha);
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        if (state instanceof Bundle)
+        {
+            Bundle bundle = (Bundle) state;
+            mAlpha = bundle.getFloat(STATUS_ALPHA);
+            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATUS));
+            return;
+        }
+        super.onRestoreInstanceState(state);
     }
 
     @Override

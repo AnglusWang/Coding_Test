@@ -135,7 +135,13 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void onClick(View v) {
+        clickTabs(v);
+    }
 
+    /**
+     *  底部 Tab 点击事件处理
+     */
+    private void clickTabs(View v) {
         // 重置其他TabIndicator的颜色
         resetTabOther();
         switch (v.getId()) {
