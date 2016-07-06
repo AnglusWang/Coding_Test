@@ -43,6 +43,10 @@ public class MainActivity extends FragmentActivity
         initData();
         mViewpager.setAdapter(mAdapter);
         mViewpager.setOnPageChangeListener(this);
+
+//        // 改变 ActionBar 标题的位置
+//        getActionBar().setCustomView(R.layout.自定义控件);
+//        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 
     private void initData() {
