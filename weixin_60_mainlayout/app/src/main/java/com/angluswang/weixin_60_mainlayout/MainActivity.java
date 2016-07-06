@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 
@@ -14,7 +15,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity
+        implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private ViewPager mViewpager;
     private List<Fragment> mTabs = new ArrayList<>();
@@ -22,6 +24,12 @@ public class MainActivity extends FragmentActivity {
             {"First Fragment !", "Second Fragment !", "Third Fragment !",
                     "Fourth Fragment !"};
     private FragmentPagerAdapter mAdapter;
+
+    private List<ChangeColorIconWithText> mTabIndicator = new ArrayList<>();
+    private ChangeColorIconWithText indicatorOne;
+    private ChangeColorIconWithText indicatorTwo;
+    private ChangeColorIconWithText indicatorThree;
+    private ChangeColorIconWithText indicatorFour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,7 @@ public class MainActivity extends FragmentActivity {
         initView();
         initData();
         mViewpager.setAdapter(mAdapter);
-
+        mViewpager.setOnPageChangeListener(this);
     }
 
     private void initData() {
@@ -64,6 +72,22 @@ public class MainActivity extends FragmentActivity {
 
     private void initView() {
         mViewpager = (ViewPager) findViewById(R.id.id_viewpager);
+
+        indicatorOne = (ChangeColorIconWithText) findViewById(R.id.id_indicator_one);
+        mTabIndicator.add(indicatorOne);
+        indicatorTwo = (ChangeColorIconWithText) findViewById(R.id.id_indicator_two);
+        mTabIndicator.add(indicatorTwo);
+        indicatorThree = (ChangeColorIconWithText) findViewById(R.id.id_indicator_three);
+        mTabIndicator.add(indicatorThree);
+        indicatorFour = (ChangeColorIconWithText) findViewById(R.id.id_indicator_four);
+        mTabIndicator.add(indicatorFour);
+
+        indicatorOne.setOnClickListener(this);
+        indicatorTwo.setOnClickListener(this);
+        indicatorThree.setOnClickListener(this);
+        indicatorFour.setOnClickListener(this);
+
+        indicatorOne.setIconAlpha(1.0f);
     }
 
     @Override
@@ -107,5 +131,62 @@ public class MainActivity extends FragmentActivity {
         }
 
         return super.onMenuOpened(featureId, menu);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        // 重置其他TabIndicator的颜色
+        resetTabOther();
+        switch (v.getId()) {
+            case R.id.id_indicator_one:
+                mTabIndicator.get(0).setIconAlpha(1.0f);
+                mViewpager.setCurrentItem(0, false);
+                break;
+            case R.id.id_indicator_two:
+                mTabIndicator.get(1).setIconAlpha(1.0f);
+                mViewpager.setCurrentItem(1, false);
+                break;
+            case R.id.id_indicator_three:
+                mTabIndicator.get(2).setIconAlpha(1.0f);
+                mViewpager.setCurrentItem(2, false);
+                break;
+            case R.id.id_indicator_four:
+                mTabIndicator.get(3).setIconAlpha(1.0f);
+                mViewpager.setCurrentItem(3, false);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 重置其他TabIndicator的颜色
+     */
+    private void resetTabOther() {
+        for (int i = 0, n = mTabIndicator.size(); i < n; i++) {
+            mTabIndicator.get(i).setIconAlpha(0.0f);
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position,
+                               float positionOffset, int positionOffsetPixels) {
+        if (positionOffset > 0) {
+            ChangeColorIconWithText left = mTabIndicator.get(position);
+            ChangeColorIconWithText right = mTabIndicator.get(position + 1);
+            left.setIconAlpha(1 - positionOffset);
+            right.setIconAlpha(positionOffset);
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

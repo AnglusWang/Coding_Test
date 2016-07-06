@@ -98,8 +98,7 @@ public class ChangeColorIconWithText extends View {
                 - getPaddingRight(), getMeasuredHeight() - getPaddingTop()
                 - getPaddingBottom() - mTextBound.height());
         int left = getMeasuredWidth() / 2 - iconWidth / 2;
-        int top = getMeasuredHeight() / 2 - (mTextBound.height() + iconWidth)
-                / 2;
+        int top = getMeasuredHeight() / 2 - (mTextBound.height() + iconWidth) / 2;
         mIconRect = new Rect(left, top, left + iconWidth, top + iconWidth);
 
     }
@@ -128,7 +127,7 @@ public class ChangeColorIconWithText extends View {
      */
     private void drawTargetText(Canvas canvas, int alpha) {
         mTextPaint.setColor(mColor);
-        mTextPaint.setAlpha(255-alpha);
+        mTextPaint.setAlpha(alpha);
         int x = getMeasuredWidth() / 2 - mTextBound.width() / 2;
         int y = mIconRect.bottom + mTextBound.height();
         canvas.drawText(mText, x, y, mTextPaint);
@@ -142,7 +141,7 @@ public class ChangeColorIconWithText extends View {
      */
     private void drawSourceText(Canvas canvas, int alpha) {
         mTextPaint.setColor(0xff333333);
-        mTextPaint.setAlpha(alpha);
+        mTextPaint.setAlpha(255-alpha);
         int x = getMeasuredWidth() / 2 - mTextBound.width() / 2;
         int y = mIconRect.bottom + mTextBound.height();
         canvas.drawText(mText, x, y, mTextPaint);
@@ -159,8 +158,8 @@ public class ChangeColorIconWithText extends View {
                 Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
         mPaint = new Paint();
-        mPaint.setAlpha(alpha);
         mPaint.setColor(mColor);
+        mPaint.setAlpha(alpha);
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
         mCanvas.drawRect(mIconRect, mPaint);
