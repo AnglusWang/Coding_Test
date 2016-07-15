@@ -1,6 +1,7 @@
 package com.angluswang.festival_sms;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] mTitles = new String[]{"节日短信", "发送记录"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
