@@ -1,4 +1,4 @@
-package com.angluswang.festival_sms;
+package com.angluswang.festival_sms.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.angluswang.festival_sms.R;
 import com.angluswang.festival_sms.bean.Festival;
 import com.angluswang.festival_sms.bean.FestivalLab;
 

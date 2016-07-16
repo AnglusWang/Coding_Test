@@ -14,7 +14,6 @@
         android:background="#ffffff"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/main_color"
-        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/main_color"
         app:tabTextColor="#000000">
 
