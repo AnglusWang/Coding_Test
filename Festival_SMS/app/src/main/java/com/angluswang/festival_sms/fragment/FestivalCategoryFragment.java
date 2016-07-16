@@ -1,5 +1,6 @@
 package com.angluswang.festival_sms.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.angluswang.festival_sms.R;
+import com.angluswang.festival_sms.activity.ChooseMsgActivity;
 import com.angluswang.festival_sms.bean.Festival;
 import com.angluswang.festival_sms.bean.FestivalLab;
 
@@ -20,6 +22,8 @@ import com.angluswang.festival_sms.bean.FestivalLab;
  */
 
 public class FestivalCategoryFragment extends Fragment {
+
+    public static final String ID_FESTIVAL = "festival_id";
 
     private GridView mGridView;
     private ArrayAdapter<Festival> mAdapter;
@@ -52,8 +56,10 @@ public class FestivalCategoryFragment extends Fragment {
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ChooseMsgActivity.class);
+                intent.putExtra(ID_FESTIVAL, mAdapter.getItem(position).getId());
+                startActivity(intent);
             }
         });
     }
