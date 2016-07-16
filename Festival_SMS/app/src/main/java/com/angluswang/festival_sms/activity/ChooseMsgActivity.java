@@ -40,7 +40,7 @@ public class ChooseMsgActivity extends AppCompatActivity {
         mFabToSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                SendMessageActivity.toActivity(ChooseMsgActivity.this, mFestivalId, -1);
             }
         });
     }
@@ -51,7 +51,7 @@ public class ChooseMsgActivity extends AppCompatActivity {
         mlvMsgs.setAdapter(mAdapter = new ArrayAdapter<Msg>(this, -1,
                 FestivalLab.getInstance().getMsgsByFestivalId(mFestivalId)) {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(final int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
                     convertView = mInflater.inflate(R.layout.item_msg, parent, false);
                 }
@@ -62,7 +62,7 @@ public class ChooseMsgActivity extends AppCompatActivity {
                 toSend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+                        SendMessageActivity.toActivity(ChooseMsgActivity.this, mFestivalId, getItem(position).getId());
                     }
                 });
 
