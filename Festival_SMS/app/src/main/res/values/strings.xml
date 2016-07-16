@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Festival_SMS</string>
+    <string name="title_activity_send_message">SendMessageActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

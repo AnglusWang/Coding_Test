@@ -21,6 +21,10 @@
             android:name=".activity.ChooseMsgActivity"
             android:theme="@style/Theme.AppCompat.Light">
         </activity>
+        <activity
+            android:name=".activity.SendMessageActivity"
+            android:label="@string/title_activity_send_message">
+        </activity>
     </application>
 
 </manifest>
