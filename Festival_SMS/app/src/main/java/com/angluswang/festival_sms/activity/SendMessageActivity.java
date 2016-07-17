@@ -1,7 +1,10 @@
 package com.angluswang.festival_sms.activity;
 
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,16 +12,19 @@ import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.angluswang.festival_sms.R;
 import com.angluswang.festival_sms.bean.Festival;
 import com.angluswang.festival_sms.bean.FestivalLab;
 import com.angluswang.festival_sms.bean.Msg;
+import com.angluswang.festival_sms.biz.SmsBiz;
 import com.angluswang.festival_sms.view.FlowLayout;
 
 import java.util.HashSet;
@@ -46,6 +52,16 @@ public class SendMessageActivity extends AppCompatActivity {
 
     private LayoutInflater mInflater;
 
+    private static final String ACTION_SEND_MSG = "ACTION_SEND_MSG";
+    private static final String ACTION_DELIVER_MSG = "ACTION_DELIVER_MSG";
+
+    private PendingIntent mSendPi;
+    private PendingIntent mDeliverPi;
+    private BroadcastReceiver mSendBroadcastReceiver;
+    private BroadcastReceiver mDeliverBroadcastReceiver;
+
+    private SmsBiz mSmsBiz = new SmsBiz();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +70,42 @@ public class SendMessageActivity extends AppCompatActivity {
         initDatas();
         initViews();
         initEvent();
+        initReceiver();
 
         mInflater = LayoutInflater.from(this);
+    }
+
+    private void initReceiver() {
+        Intent sendIntent = new Intent(ACTION_SEND_MSG);
+        mSendPi = PendingIntent.getBroadcast(this, 0, sendIntent, 0);
+        Intent deliverIntent = new Intent(ACTION_DELIVER_MSG);
+        mDeliverPi = PendingIntent.getBroadcast(this, 0, deliverIntent, 0);
+
+        registerReceiver(mSendBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (getResultCode() == RESULT_OK) {
+                    Log.e("TAG", "短信发送成功~");
+                } else {
+                    Log.e("TAG", "短信发送失败~");
+                }
+            }
+        }, new IntentFilter(ACTION_SEND_MSG));
+
+        registerReceiver(mDeliverBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.e("TAG", "联系人已经成功收到短信~");
+            }
+        }, new IntentFilter(ACTION_DELIVER_MSG));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 防止造成内存泄漏
+        unregisterReceiver(mSendBroadcastReceiver);
+        unregisterReceiver(mDeliverBroadcastReceiver);
     }
 
     private void initEvent() {
@@ -65,6 +115,24 @@ public class SendMessageActivity extends AppCompatActivity {
                 Intent intent = new Intent(
                         Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(intent, CODE_REQUEST);
+            }
+        });
+
+        fabSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mContactsNums.size() == 0) {
+                    Toast.makeText(SendMessageActivity.this, "请先选择联系人~",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String msg = etMsg.getText().toString();
+                if (TextUtils.isEmpty(msg)) {
+                    Toast.makeText(SendMessageActivity.this, "短信内容不能为空~",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int count = mSmsBiz.sendMsg(mContactsNums, msg, mSendPi, mDeliverPi); //发生短信并计数
             }
         });
     }
