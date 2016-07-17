@@ -61,6 +61,8 @@ public class SendMessageActivity extends AppCompatActivity {
     private BroadcastReceiver mDeliverBroadcastReceiver;
 
     private SmsBiz mSmsBiz = new SmsBiz();
+    private int mMsgSendCount;  //计算发送成功多少条短信
+    private int mTotalCount;    //记录总的短信数目
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +87,17 @@ public class SendMessageActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (getResultCode() == RESULT_OK) {
-                    Log.e("TAG", "短信发送成功~");
+                    mMsgSendCount++;
+                    Log.e("TAG", "短信发送成功~" + (mMsgSendCount + "/" + mTotalCount));
                 } else {
                     Log.e("TAG", "短信发送失败~");
                 }
+                Toast.makeText(SendMessageActivity.this, (mMsgSendCount + "/" + mTotalCount) + "短信发送成功~",
+                        Toast.LENGTH_SHORT).show();
+                if (mMsgSendCount == mTotalCount) {
+                    finish();
+                }
+
             }
         }, new IntentFilter(ACTION_SEND_MSG));
 
@@ -132,7 +141,8 @@ public class SendMessageActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int count = mSmsBiz.sendMsg(mContactsNums, msg, mSendPi, mDeliverPi); //发生短信并计数
+                mTotalCount = mSmsBiz.sendMsg(mContactsNums, msg, mSendPi, mDeliverPi); //发生短信并计数
+                mMsgSendCount = 0; //
             }
         });
     }
