@@ -62,7 +62,8 @@ public class ChooseMsgActivity extends AppCompatActivity {
                 toSend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        SendMessageActivity.toActivity(ChooseMsgActivity.this, mFestivalId, getItem(position).getId());
+                        SendMessageActivity.toActivity(ChooseMsgActivity.this,
+                                mFestivalId, getItem(position).getId());
                     }
                 });
 

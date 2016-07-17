@@ -1,6 +1,5 @@
 package com.angluswang.festival_sms.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,7 @@ import com.angluswang.festival_sms.view.FlowLayout;
 
 import java.util.HashSet;
 
-public class SendMessageActivity extends Activity {
+public class SendMessageActivity extends AppCompatActivity {
 
     private static final String KEY_FESTIVAL_ID = "festival";
     private static final String KEY_MSG_ID = "msgId";
@@ -59,10 +59,11 @@ public class SendMessageActivity extends Activity {
     }
 
     private void initEvent() {
-        etMsg.setOnClickListener(new View.OnClickListener() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                Intent intent = new Intent(
+                        Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(intent, CODE_REQUEST);
             }
         });
@@ -77,7 +78,7 @@ public class SendMessageActivity extends Activity {
 
         layoutLoading.setVisibility(View.GONE);
 
-        if (mMsgId == -1) {
+        if (mMsgId != -1) {
             mMsg = FestivalLab.getInstance().getMsgByMsgId(mMsgId);
             etMsg.setText(mMsg.getContent());
         }
@@ -106,19 +107,19 @@ public class SendMessageActivity extends Activity {
                 mContactsNames.add(contactName);
 
                 String contactNum = getContactNumber(cursor);
-                if (TextUtils.isEmpty(contactNum)) {
+                if (!TextUtils.isEmpty(contactNum)) {
                     mContactsNums.add(contactNum);
                     mContactsNames.add(contactName);
 
-                    addTag(contactName);
+                    addTag(contactName, contactNum);
                 }
             }
         }
     }
 
-    private void addTag(String contactName) {
+    private void addTag(String contactName, String contactNumber) {
         TextView view = (TextView) mInflater.inflate(R.layout.tag, flContacts, false);
-        view.setText(contactName);
+        view.setText(contactName + ":" + contactNumber + ";");
         flContacts.addView(view);
     }
 

@@ -32,7 +32,8 @@
         <com.angluswang.festival_sms.view.FlowLayout
             android:id="@+id/id_fl_contacts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="8dp">
 
         </com.angluswang.festival_sms.view.FlowLayout>
     </LinearLayout>
