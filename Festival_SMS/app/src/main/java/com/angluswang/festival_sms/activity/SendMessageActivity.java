@@ -97,6 +97,7 @@ public class SendMessageActivity extends AppCompatActivity {
                 if (mMsgSendCount == mTotalCount) {
                     finish();
                 }
+                layoutLoading.setVisibility(View.VISIBLE);
 
             }
         }, new IntentFilter(ACTION_SEND_MSG));
