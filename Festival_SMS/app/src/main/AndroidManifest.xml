@@ -31,6 +31,12 @@
             android:label="@string/title_activity_send_message"
             android:theme="@style/Theme.AppCompat.Light">
         </activity>
+
+        <provider
+            android:name=".db.SmsProvider"
+            android:authorities="com.angluswang.sms.provider.SmsProvider">
+
+        </provider>
     </application>
 
 </manifest>

@@ -42,7 +42,7 @@ public class SmsDbOpenHelper extends SQLiteOpenHelper {
                 SendedMsg.COLUME_FESTIVAL_NAME + "text , " +
                 SendedMsg.COLUME_MSG + "text , " +
                 SendedMsg.COLUME_NAMES + "text , " +
-                SendedMsg.COLUME_NUMBERS + "text , " +
+                SendedMsg.COLUME_NUMBERS + "text" +
                 ")";
         sqLiteDatabase.execSQL(sql);
     }

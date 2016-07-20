@@ -24,6 +24,7 @@ import com.angluswang.festival_sms.R;
 import com.angluswang.festival_sms.bean.Festival;
 import com.angluswang.festival_sms.bean.FestivalLab;
 import com.angluswang.festival_sms.bean.Msg;
+import com.angluswang.festival_sms.bean.SendedMsg;
 import com.angluswang.festival_sms.biz.SmsBiz;
 import com.angluswang.festival_sms.view.FlowLayout;
 
@@ -60,7 +61,7 @@ public class SendMessageActivity extends AppCompatActivity {
     private BroadcastReceiver mSendBroadcastReceiver;
     private BroadcastReceiver mDeliverBroadcastReceiver;
 
-    private SmsBiz mSmsBiz = new SmsBiz();
+    private SmsBiz mSmsBiz;
     private int mMsgSendCount;  //计算发送成功多少条短信
     private int mTotalCount;    //记录总的短信数目
 
@@ -75,6 +76,7 @@ public class SendMessageActivity extends AppCompatActivity {
         initReceiver();
 
         mInflater = LayoutInflater.from(this);
+        mSmsBiz = new SmsBiz(this);
     }
 
     private void initReceiver() {
@@ -142,10 +144,27 @@ public class SendMessageActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mTotalCount = mSmsBiz.sendMsg(mContactsNums, msg, mSendPi, mDeliverPi); //发生短信并计数
+                mTotalCount = mSmsBiz.sendMsg(mContactsNums, buildSendMsg(msg), mSendPi, mDeliverPi); //发生短信并计数
                 mMsgSendCount = 0; //
             }
         });
+    }
+
+    private SendedMsg buildSendMsg(String msg) {
+        SendedMsg sendedMsg = new SendedMsg();
+        sendedMsg.setMsg(msg);
+        sendedMsg.setFestivalName(mFestival.getName());
+        String names = "";
+        for (String name : mContactsNames) {
+            names += name + ":";
+        }
+        sendedMsg.setNames(names.substring(0, names.length() - 1));
+        String numbers = "";
+        for (String number : mContactsNums) {
+            numbers += number + ":";
+        }
+        sendedMsg.setNumbers(numbers.substring(0, numbers.length() - 1));
+        return sendedMsg;
     }
 
     private void initViews() {

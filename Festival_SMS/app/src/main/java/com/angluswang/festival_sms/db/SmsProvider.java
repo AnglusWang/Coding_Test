@@ -37,7 +37,8 @@ public class SmsProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        return false;
+        mHelper = SmsDbOpenHelper.getInstance(getContext());
+        return true;
     }
 
     @Nullable
