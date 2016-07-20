@@ -19,6 +19,7 @@ import com.angluswang.festival_sms.bean.FestivalLab;
 
 /**
  * Created by Jeson on 2016/7/14.
+ * 节日祝福 Fragment
  */
 
 public class FestivalCategoryFragment extends Fragment {
