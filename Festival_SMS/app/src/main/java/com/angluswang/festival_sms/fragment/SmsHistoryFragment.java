@@ -72,7 +72,7 @@ public class SmsHistoryFragment extends ListFragment {
                 }
                 fl.removeAllViews();
                 for (String name : names.split(":")) {
-                    addTag(name, fl);
+                    addTag(name, fl); //
                 }
             }
         };
