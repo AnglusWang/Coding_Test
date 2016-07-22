@@ -79,7 +79,7 @@ public class SmsHistoryFragment extends ListFragment {
         setListAdapter(mCursorAdapter);
     }
 
-    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd, HH-mm-ss");
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss");
     private String ParseDate(long dateVal) {
         return df.format(dateVal);
     }
