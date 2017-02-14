@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,10 +9,20 @@
     tools:context="com.angluswang.progressbar.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <com.angluswang.view.HorizontalProgressBar
+            android:id="@+id/id_progress01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="15dp"
+            android:progress="0"
+            app:progress_reach_color="#ffff0000"
+            app:progress_text_color="#ffff0000"
+            app:progress_unreach_color="#44ff0000"/>
 
     </LinearLayout>
 </ScrollView>
