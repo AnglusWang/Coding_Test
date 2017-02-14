@@ -24,16 +24,16 @@ public class HorizontalProgressBar extends ProgressBar {
     public static final int DEFAULT_REACH_HEIGHT = 2;// dp
     public static final int DEFAULT_TEXT_OFFSET = 10;// dp
 
-    private int mTextSize = sp2px(DEFAULT_TEXT_SIZE);
-    private int mTextColor = DEFAULT_TEXT_COLOR;
-    private int mColorUnreach = DEFAULT_COLOR_UNREACH;
-    private int mUnreachHeight = dp2px(DEFAULT_UNREACH_HEIGHT);
-    private int mColorReach = DEFAULT_COLOR_REACH;
-    private int mReachHeight = dp2px(DEFAULT_REACH_HEIGHT);
-    private int mTextOffset = dp2px(DEFAULT_TEXT_OFFSET);
+    protected int mTextSize = sp2px(DEFAULT_TEXT_SIZE);
+    protected int mTextColor = DEFAULT_TEXT_COLOR;
+    protected int mColorUnreach = DEFAULT_COLOR_UNREACH;
+    protected int mUnreachHeight = dp2px(DEFAULT_UNREACH_HEIGHT);
+    protected int mColorReach = DEFAULT_COLOR_REACH;
+    protected int mReachHeight = dp2px(DEFAULT_REACH_HEIGHT);
+    protected int mTextOffset = dp2px(DEFAULT_TEXT_OFFSET);
 
-    private Paint mPaint = new Paint();
-    private int mRealWidth;
+    protected Paint mPaint = new Paint();
+    protected int mRealWidth;
 
     public HorizontalProgressBar(Context context) {
         this(context, null);
@@ -145,12 +145,12 @@ public class HorizontalProgressBar extends ProgressBar {
         canvas.restore();
     }
 
-    private int dp2px(int dpVal) {
+    protected int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, getResources().getDisplayMetrics());
     }
 
-    private int sp2px(int spVal) {
+    protected int sp2px(int spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, getResources().getDisplayMetrics());
     }

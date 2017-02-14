@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.angluswang.view.HorizontalProgressBar;
+import com.angluswang.view.RoundProgressBar;
 
 public class MainActivity extends Activity {
 
@@ -15,6 +16,7 @@ public class MainActivity extends Activity {
         public void handleMessage(Message msg) {
             int progerss = mHProgressBar.getProgress();
             mHProgressBar.setProgress(++progerss);
+            mRoundProgressBar.setProgress(++progerss);
             if (progerss > 100) {
                 mHandler.removeMessages(MSG_UPDATE);
             }
@@ -22,8 +24,8 @@ public class MainActivity extends Activity {
         }
     };
 
-
     private HorizontalProgressBar mHProgressBar;
+    private RoundProgressBar mRoundProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mHProgressBar = (HorizontalProgressBar) findViewById(R.id.id_progress01);
+        mRoundProgressBar = (RoundProgressBar) findViewById(R.id.id_progress02);
         mHandler.sendEmptyMessage(MSG_UPDATE);
     }
 }

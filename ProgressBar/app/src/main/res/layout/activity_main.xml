@@ -45,5 +45,28 @@
             app:progress_unreach_color="#440000ff"
             app:progress_unreach_height="3dp"/>
 
+        <com.angluswang.view.RoundProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:progress="75"
+            app:progress_reach_color="#ff00aabb"
+            app:progress_text_color="#ff00aabb"
+            app:progress_text_size="20sp"
+            app:progress_unreach_color="#4400aabb"
+            app:radius="60dp"/>
+
+        <com.angluswang.view.RoundProgressBar
+            android:id="@+id/id_progress02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:progress="0"
+            app:progress_reach_color="#ffffbb00"
+            app:progress_text_color="#ffffbb00"
+            app:progress_text_size="20sp"
+            app:progress_unreach_color="#44ffbb00"
+            app:radius="80dp"/>
+
     </LinearLayout>
 </ScrollView>
