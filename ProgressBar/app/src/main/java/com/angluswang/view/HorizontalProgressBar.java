@@ -47,6 +47,8 @@ public class HorizontalProgressBar extends ProgressBar {
         super(context, attrs, defStyleAttr);
         obtainStyleAttrs(attrs);
         mPaint.setTextSize(mTextSize);
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
     }
 
     /**
