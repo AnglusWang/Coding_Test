@@ -12,10 +12,14 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"/>-->
 
-    <com.anlguswang.view.PieView
-        android:id="@+id/id_pieView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+    <!--<com.anlguswang.view.PieView-->
+        <!--android:id="@+id/id_pieView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"/>-->
+
+    <com.angluswang.canvasdemo.CanvasView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
