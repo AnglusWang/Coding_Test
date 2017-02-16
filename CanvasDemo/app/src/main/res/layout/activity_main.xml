@@ -13,13 +13,40 @@
     <!--android:layout_height="match_parent"/>-->
 
     <!--<com.anlguswang.view.PieView-->
-        <!--android:id="@+id/id_pieView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"/>-->
+    <!--android:id="@+id/id_pieView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"/>-->
 
-    <com.angluswang.canvasdemo.CanvasView
+    <!--<com.angluswang.canvasdemo.CanvasView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+
+    <com.angluswang.canvasdemo.CheckView
+        android:id="@+id/id_checkView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="已检查"/>
+
+        <Button
+            android:id="@+id/btn_unCheck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="未检查"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
